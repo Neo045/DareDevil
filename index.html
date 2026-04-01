@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daredevil: Born Again (Season 2)</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle,#000,#0f2027);
+  overflow:hidden;
+}
+
+/* 🔴 Optimized Glow */
+body::before{
+  content:'';
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:red;
+  filter:blur(80px); /* reduced */
+  opacity:0.4;
+  animation:pulse 4s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.3);}
+}
+
+/* 🩸 Optimized Rain */
+.rain{
+  position:fixed;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
+}
+
+.rain span{
+  position:absolute;
+  width:2px;
+  height:18px;
+  background:red;
+  opacity:0.6;
+  will-change:transform;
+  animation:rainDrop linear infinite;
+}
+
+@keyframes rainDrop{
+  to{
+    transform:translateY(110vh);
+  }
+}
+
+.container{
+  position:relative;
+  width:100%;
+  max-width:360px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 30px rgba(255,0,0,0.3);
+  text-align:center;
+  color:white;
+  z-index:2;
+}
+
+/* Poster */
+.poster{
+  width:100%;
+  border-radius:15px;
+}
+
+/* Title */
+.title{
+  margin-top:8px;
+  color:#ff2a2a;
+  text-shadow:0 0 8px red;
+}
+
+/* Heading */
+h2{
+  margin:10px 0;
+  color:#ff3b3b;
+  text-shadow:0 0 10px red;
+}
+
+/* Buttons */
+.link-btn{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,0,0,0.2);
+  color:white;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+.link-btn:hover{
+  background:red;
+  transform:scale(1.03);
+  box-shadow:0 0 15px red;
+}
+
+/* 📀 DVD */
+.dvd{
+  position:fixed;
+  width:80px;
+  z-index:3;
+  pointer-events:none;
+  filter:drop-shadow(0 0 8px red);
+  will-change:transform;
+}
+
+/* ⚡ Optimized Glitch */
+.glitch{
+  animation:glitch 2s infinite;
+}
+
+@keyframes glitch{
+  0%,100%{transform:translate(0);}
+  25%{transform:translate(-1px,1px);}
+  50%{transform:translate(1px,-1px);}
+  75%{transform:translate(-1px,0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔊 Sound -->
+<audio id="bgSound" loop>
+<source src="https://file.garden/aZfQ0ZO7dDZU3Ub3/daredevil_main_theme.mp3">
+</audio>
+
+<!-- 🩸 Rain -->
+<div class="rain"></div>
+
+<!-- 📀 Poster -->
+<img src="https://i.postimg.cc/GpdstX3p/images.jpg" class="dvd glitch">
+
+<div class="container">
+<img src="https://i.postimg.cc/25cgyXd7/x-DUo-As-U8l-QHOOo-Rk-Fi-Buarm-ACDN.jpg" class="poster">
+<div class="title"><b><big>DAREDEVIL: BORN AGAIN Season 02</b></big></div>
+<h2>🌩️Download Now</h2>
+
+<button class="link-btn" onclick="go('ep2')"><b><big>🎬 Episode 02</b></big></button>
+<button class="link-btn" onclick="go('ep3')">🎬 <b><big>Episode 03</b></big></button>
+</div>
+
+<script>
+// 🔗 Links
+const links={
+ep2:"https://da.gd/Episode_02",
+ep3:"https://da.gd/Episode_03"
+};
+
+// 🔊 Sound
+const sound=document.getElementById("bgSound");
+sound.volume=0.4;
+window.addEventListener("load",()=>{sound.play().catch(()=>{});});
+document.body.addEventListener("click",()=>{sound.play();},{once:true});
+
+// 🩸 Rain (optimized count + speed variance)
+const rain=document.querySelector('.rain');
+for(let i=0;i<35;i++){
+let d=document.createElement('span');
+d.style.left=Math.random()*100+"vw";
+d.style.animationDuration=(Math.random()*1.5+0.7)+"s";
+rain.appendChild(d);
+}
+
+// 📀 Smooth DVD
+const dvd=document.querySelector('.dvd');
+let x=100,y=100,dx=1.5,dy=1.5;
+
+function animate(){
+const w=innerWidth-dvd.clientWidth;
+const h=innerHeight-dvd.clientHeight;
+
+x+=dx;
+y+=dy;
+
+if(x<=0||x>=w)dx*=-1;
+if(y<=0||y>=h)dy*=-1;
+
+dvd.style.transform=`translate(${x}px,${y}px)`;
+
+requestAnimationFrame(animate);
+}
+animate();
+
+// 🎬 Button
+function go(key){
+sound.currentTime=0;
+sound.play();
+location.href=links[key];
+}
+</script>
+
+</body>
+</html>
